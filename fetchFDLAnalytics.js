@@ -1,23 +1,21 @@
 const axios = require("axios");
 const { google } = require("googleapis");
 
-// Load the service account key JSON file.
-const serviceAccount = require("./config/serviceAccountKey.json");
+//data from JSON file
+const serviceAccount = require("./service-account.json");
+const { client_email, private_key } = serviceAccount;
 
 // Authenticate a JWT client with the service account.
-const jwtClient = new google.auth.JWT(
-  serviceAccount.client_email,
-  null,
-  serviceAccount.private_key,
-  ["https://www.googleapis.com/auth/firebase"]
-);
+const jwtClient = new google.auth.JWT(client_email, null, private_key, [
+  "https://www.googleapis.com/auth/firebase",
+]);
 
 async function fetchDynamicLinkStats(dynamicLink, durationDays) {
   try {
     // Ensure the JWT client is authorized
     await jwtClient.authorize();
 
-    console.log(`Using access token: ${jwtClient.credentials.access_token}`);
+    //console.log(`Using access token: ${jwtClient.credentials.access_token}`);
 
     // Encode the dynamic link
     const encodedDynamicLink = encodeURIComponent(dynamicLink);
@@ -25,10 +23,10 @@ async function fetchDynamicLinkStats(dynamicLink, durationDays) {
     // Construct the API URL
     const apiUrl = `https://firebasedynamiclinks.googleapis.com/v1/${encodedDynamicLink}/linkStats?durationDays=${durationDays}`;
 
-    axios.interceptors.request.use((request) => {
-      console.log("Starting Request", JSON.stringify(request, null, 2)); //para ver el request que se esta haciendo
-      return request;
-    });
+    // axios.interceptors.request.use((request) => {
+    //   console.log("Starting Request", JSON.stringify(request, null, 2)); //para ver el request que se esta haciendo
+    //   return request;
+    // });
 
     // Make the API request
     const response = await axios.get(apiUrl, {
