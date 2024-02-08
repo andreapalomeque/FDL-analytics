@@ -42,8 +42,7 @@ async function fetchDynamicLinkStats(links, durationDays) {
     const dateRangeId = `${firstDay}_to_${lastDay}`;
 
     //iterate over the links
-    for (const dynamicLink of links) {
-      const linkId = dynamicLink.split("/").pop();
+    for (const [linkName, dynamicLink] of Object.entries(links)) {
       const encodedDynamicLink = encodeURIComponent(dynamicLink);
 
       // Construct the API URL
@@ -56,17 +55,7 @@ async function fetchDynamicLinkStats(links, durationDays) {
         },
       });
 
-      // Create a new document for this 7-day range with the firstDay and lastDay as the document ID
-      // const docRef = db
-      //   .collection("dynamicLinkStats")
-      //   .doc()
-      //   .collection("dateRanges")
-      //   .doc(dateRangeId);
-      // await docRef.set({
-      //   data: response.data,
-      // });
-
-      const linkDocRef = db.collection("dynamicLinkStats").doc(linkId);
+      const linkDocRef = db.collection("dynamicLinkStats").doc(linkName);
       await linkDocRef.collection("dateRanges").doc(dateRangeId).set({
         data: response.data, // Data for the new date range
       });
@@ -85,10 +74,11 @@ async function fetchDynamicLinkStats(links, durationDays) {
 }
 
 // Example usage
-const links = [
-  "https://hablalo.page.link/PruebaPortho",
-  "https://hablalo.page.link/LaEspumeria",
-  "https://hablalo.page.link/Flybondi",
-];
-const durationDays = "30"; // Example: Fetch stats for the last 7 days
+const links = {
+  "Portho-Prueba": "https://hablalo.page.link/PruebaPortho",
+  "LA-ESPUMERÍA": "https://hablalo.page.link/LaEspumeria",
+  Flybondi: "https://hablalo.page.link/Flybondi",
+};
+
+const durationDays = "7"; // Example: Fetch stats for the last 7 days
 fetchDynamicLinkStats(links, durationDays);
