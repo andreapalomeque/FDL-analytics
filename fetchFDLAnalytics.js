@@ -25,7 +25,10 @@ async function fetchDynamicLinkStats(links, durationDays) {
     // Ensure the JWT client is authorized
     await jwtClient.authorize();
 
+    const date = new Date().toISOString().slice(0, 10);
+
     const currentDate = new Date();
+
     currentDate.setDate(currentDate.getDate() - 1); // Adjust to "yesterday"
     const lastDay = `${currentDate.getDate().toString().padStart(2, "0")}-${(
       currentDate.getMonth() + 1
@@ -56,7 +59,7 @@ async function fetchDynamicLinkStats(links, durationDays) {
       });
 
       const linkDocRef = db.collection("dynamicLinkStats").doc(linkName);
-      await linkDocRef.collection("dateRanges").doc(dateRangeId).set({
+      await linkDocRef.collection("dateRanges").doc(date).set({
         data: response.data, // Data for the new date range
       });
 
@@ -76,8 +79,20 @@ async function fetchDynamicLinkStats(links, durationDays) {
 // Example usage
 const links = {
   "Portho-Prueba": "https://hablalo.page.link/PruebaPortho",
-  "LA-ESPUMERÍA": "https://hablalo.page.link/LaEspumeria",
+  "Santander-M": "https://hablalo.page.link/SantanderMX",
   Flybondi: "https://hablalo.page.link/Flybondi",
+  "LA-ESPUMERÍA": "https://hablalo.page.link/LaEspumeria",
+  Diggit: "https://hablalo.page.link/diggit",
+  Samsung: "https://hablalo.page.link/Samsung",
+  "Hiper-ChangoMâs": "https://hablalo.page.link/Hiperchangomas",
+  Marriot: "https://hablalo.page.link/Marriot",
+  "BK-CHILE": "https://hablalo.page.link/BurgerKingCL",
+  Nespresso: "https://hablalo.page.link/Nespresso",
+  "BURGER-KING": "https://hablalo.page.link/BurgerKing",
+  Electrolux: "https://hablalo.page.link/Electrolux",
+  "Club-Atlético River Plate": "https://hablalo.page.link/RiverPrd",
+  MegatoneQR1: "https://hablalo.page.link/MegatoneQR1",
+  MegatoneQR2: "https://hablalo.page.link/MegatoneQR2",
 };
 
 const durationDays = "7"; // Example: Fetch stats for the last 7 days
