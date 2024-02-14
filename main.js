@@ -79,6 +79,7 @@ async function fetchDynamicLinkStats(links, durationDays) {
 // Example usage
 const links = {
   "Portho-Prueba": "https://hablalo.page.link/PruebaPortho",
+  Santander: "https://hablalo.page.link/SantanderPrd",
   "Santander-M": "https://hablalo.page.link/SantanderMX",
   Flybondi: "https://hablalo.page.link/Flybondi",
   "LA-ESPUMERÍA": "https://hablalo.page.link/LaEspumeria",
@@ -86,9 +87,9 @@ const links = {
   Samsung: "https://hablalo.page.link/Samsung",
   "Hiper-ChangoMâs": "https://hablalo.page.link/Hiperchangomas",
   Marriot: "https://hablalo.page.link/Marriot",
+  "BURGER-KING": "https://hablalo.page.link/BurgerKing",
   "BK-CHILE": "https://hablalo.page.link/BurgerKingCL",
   Nespresso: "https://hablalo.page.link/Nespresso",
-  "BURGER-KING": "https://hablalo.page.link/BurgerKing",
   Electrolux: "https://hablalo.page.link/Electrolux",
   "Club-Atlético River Plate": "https://hablalo.page.link/RiverPrd",
   MegatoneQR1: "https://hablalo.page.link/MegatoneQR1",
